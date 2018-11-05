@@ -26,4 +26,16 @@ bin:
 	@printf "\nRun by typing '\033[1mmake run-bin\033[0m'\n\n"
 
 run-bin: 
-	./text.out	
+	./binary.out	
+
+clean:
+	@rm -f *.out
+	
+bonus:
+	@printf "\n\033[36mCompiling bonus program...\n\033[0m"
+	g++ $(CFLAGS) bonus.cpp -o bonus.out 
+	@printf "\nRun by typing '\033[1mmake run-bonus\033[0m'\n\n"
+
+run-bonus: 
+	./bonus.out	
+

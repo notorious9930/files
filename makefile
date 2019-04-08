@@ -1,41 +1,35 @@
 #https://www.youtube.com/watch?v=aw9wHbFTnAQ 
 CFLAGS=-g -std=c++14 -Wall
-
-all: screen text bin 
+CC=g++
 	
+compare:
+	@printf "\n\033[33mComparing file1 and file2 with 'hexdump' program...\n\033[0m"
+	@printf "\nfile1:\n"
+	@hexdump -ve '/1 "%x " ' data/file1 | head -c 29
+	@printf "\n\nfile2:\n"
+	@hexdump -ve '/1 "%x " ' data/file2 | head -c 108
+	@printf "\n\n(Only the first 10 numbers shown IN BOTH CASES)\n\n\n"
+	@printf "..............................................................\n"
+	@printf "\n\033[36mComparing file1 and file2 with 'cat' program...\n\033[0m"
+	@printf "\nfile1:\n"
+	@cat data/file1 | head -c 29
+	@printf "\n\nfile2:\n"
+	@cat data/file2 | head 
+	@echo
 
-screen:
-	@printf "\n\033[33mCompiling screen output program...\n\033[0m"
-	g++ $(CFLAGS) screen.cpp -o screen.out 
-	@printf "\nRun by typing '\033[1mmake run-screen\033[0m'\n\n"
+convert:
+	@printf "\n\033[33mCompiling convert program...\n\033[0m"
+	$(CC) $(CFLAGS) src/convert.cpp -o bin/convert.out 
+	@printf "\nRun by typing '\033[1mmake run-convert\033[0m'\n\n"
 
-run-screen: #this is actually more typing (yikes)
-	./screen.out	
+run-convert: #this is actually more typing (yikes)
+	@bin/convert.out	
 
-text:
-	@printf "\n\033[32mCompiling text output program...\n\033[0m"
-	g++ $(CFLAGS) text.cpp -o text.out 
-	@printf "\nRun by typing '\033[1mmake run-text\033[0m'\n\n"
+filter:
+	@printf "\n\033[32mCompiling filter program...\n\033[0m"
+	$(CC) $(CFLAGS) src/filter.cpp -o bin/filter.out 
+	@printf "\nRun by typing '\033[1mmake run-filter\033[0m'\n\n"
 
-run-text: 
-	./text.out	
-
-bin:
-	@printf "\n\033[36mCompiling binary output program...\n\033[0m"
-	g++ $(CFLAGS) binary.cpp -o binary.out 
-	@printf "\nRun by typing '\033[1mmake run-bin\033[0m'\n\n"
-
-run-bin: 
-	./binary.out	
-
-clean:
-	@rm -f *.out
-	
-bonus:
-	@printf "\n\033[36mCompiling bonus program...\n\033[0m"
-	g++ $(CFLAGS) bonus.cpp -o bonus.out 
-	@printf "\nRun by typing '\033[1mmake run-bonus\033[0m'\n\n"
-
-run-bonus: 
-	./bonus.out	
+run-filter: 
+	@bin/filter.out	
 
